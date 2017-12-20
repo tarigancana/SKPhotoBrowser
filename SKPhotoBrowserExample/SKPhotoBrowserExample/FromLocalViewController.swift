@@ -65,10 +65,12 @@ extension FromLocalViewController {
         guard let originImage = cell.exampleImageView.image else {
             return
         }
-        
+
+        print(cell.frame)
         let browser = SKPhotoBrowser(originImage: originImage, photos: images, animatedFromView: cell)
         browser.initializePageIndex(indexPath.row)
         browser.delegate = self
+        browser.modalPresentationStyle = .fullScreen
 //        browser.updateCloseButton(UIImage(named: "image1.jpg")!)
         
         present(browser, animated: true, completion: {})

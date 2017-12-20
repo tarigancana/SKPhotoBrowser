@@ -49,7 +49,7 @@ class SKAnimator: NSObject, SKPhotoBrowserAnimatorDelegate {
         let imageFromView = (senderOriginImage ?? browser.getImageFromView(sender)).rotateImageByOrientation()
         let imageRatio = imageFromView.size.width / imageFromView.size.height
         
-        senderViewOriginalFrame = calcOriginFrame(sender)
+//        senderViewOriginalFrame = calcOriginFrame(sender)
         finalImageViewFrame = calcFinalFrame(imageRatio)
         
         resizableImageView = UIImageView(image: imageFromView)
@@ -76,13 +76,13 @@ class SKAnimator: NSObject, SKPhotoBrowserAnimatorDelegate {
             return
         }
         
-        senderViewForAnimation = sender
+        senderViewForAnimation = sender.superview
         browser.view.isHidden = true
         browser.backgroundView.isHidden = false
         browser.backgroundView.alpha = 1
         
-        senderViewOriginalFrame = calcOriginFrame(sender)
-        
+//        senderViewOriginalFrame = calcOriginFrame(sender)
+
         let photo = browser.photoAtIndex(browser.currentPageIndex)
         let contentOffset = scrollView.contentOffset
         let scrollFrame = scrollView.photoImageView.frame
