@@ -11,7 +11,7 @@ import UIKit
 open class SKCaptionView: UIView {
     fileprivate var photo: SKPhotoProtocol?
     fileprivate var photoLabel: UILabel!
-    fileprivate var photoLabelPadding: CGFloat = 20
+    fileprivate var photoLabelPadding: CGFloat = 10
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -39,8 +39,19 @@ open class SKCaptionView: UIView {
         
         let attributedText = NSAttributedString(string: text, attributes: [NSAttributedStringKey.font: font])
         let textSize = attributedText.boundingRect(with: CGSize(width: width, height: height), options: .usesLineFragmentOrigin, context: nil).size
-        
-        return CGSize(width: textSize.width, height: textSize.height + photoLabelPadding * 2)
+
+        var modifiedPhotoLabelPadding = photoLabelPadding
+        modifiedPhotoLabelPadding = {
+            guard #available(iOS 11.0, *), (UIApplication.shared.keyWindow?.safeAreaInsets.top)! > CGFloat(integerLiteral: 0) else {
+                return self.photoLabelPadding
+            }
+
+            return 30
+        }()
+
+        print(modifiedPhotoLabelPadding)
+
+        return CGSize(width: textSize.width, height: textSize.height + modifiedPhotoLabelPadding * 2)
     }
 }
 
