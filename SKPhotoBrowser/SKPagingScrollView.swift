@@ -197,12 +197,12 @@ private extension SKPagingScrollView {
         pageFrame.origin.x = (bounds.size.width * CGFloat(index)) + sideMargin
         return pageFrame
     }
-    
+
     func createCaptionView(_ index: Int) -> SKCaptionView? {
-        guard let photo = browser?.photoAtIndex(index), photo.caption != nil else {
-            return nil
+        if let delegate = self.browser?.delegate {
+            return delegate.captionViewForPhotoAtIndex?(index: index)
         }
-        return SKCaptionView(photo: photo)
+        return nil
     }
     
     func getFirstIndex() -> Int {
